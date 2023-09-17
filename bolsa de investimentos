@@ -1,0 +1,538 @@
+package Investimento;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Stack;
+
+enum TipoCarteira {
+    ACOES,
+    FIIS
+}
+
+class Investidor {
+    private String nome;
+    private String usuario;
+    private String senha;
+    private List<CarteiraAcoes> carteirasAcoes;
+    private List<CarteiraFIIs> carteirasFIIs;
+    private double saldo; 
+    private double valorEmAtivos; 
+
+    public Investidor(String nome, String usuario, String senha, double saldoInicial) {
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.carteirasAcoes = new ArrayList<>();
+        this.carteirasFIIs = new ArrayList<>();
+        this.saldo = saldoInicial;
+        this.valorEmAtivos = 0.0; 
+    }
+
+    public void adicionarCarteiraAcoes(CarteiraAcoes carteira) {
+        carteirasAcoes.add(carteira);
+    }
+
+    public void adicionarCarteiraFIIs(CarteiraFIIs carteira) {
+        carteirasFIIs.add(carteira);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public List<CarteiraAcoes> getCarteirasAcoes() {
+        return carteirasAcoes;
+    }
+
+    public List<CarteiraFIIs> getCarteirasFIIs() {
+        return carteirasFIIs;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public String getSaldoFormatado() {
+        DecimalFormat df = new DecimalFormat("#.###");
+        return df.format(saldo);
+    }
+
+    public double getValorEmAtivos() {
+        return valorEmAtivos;
+    }
+
+    public boolean possuiSaldoSuficiente(double valor) {
+        return saldo >= valor;
+    }
+
+    public void debitarSaldo(double valor) {
+        saldo -= valor;
+    }
+
+    public void atualizarValorEmAtivos() {
+        valorEmAtivos = 0.0;
+        for (CarteiraAcoes carteira : carteirasAcoes) {
+            for (Ativo ativo : carteira.getAtivos()) {
+                valorEmAtivos += ativo.getPrecoAtual();
+            }
+        }
+        for (CarteiraFIIs carteira : carteirasFIIs) {
+            for (Ativo ativo : carteira.getAtivos()) {
+                valorEmAtivos += ativo.getPrecoAtual();
+            }
+        }
+    }
+
+    public void mostrarCarteira(boolean crescente) {
+        DecimalFormat df = new DecimalFormat("#.###"); 
+        System.out.println("Carteira de " + nome + ":");
+        System.out.println("Saldo disponível: " + df.format(saldo)); 
+
+        if (!carteirasAcoes.isEmpty()) {
+            System.out.println("Carteiras de Ações:");
+            for (CarteiraAcoes carteira : carteirasAcoes) {
+                System.out.println("Carteira: " + carteira.getNome());
+                List<Ativo> ativosCarteira = new ArrayList<>(carteira.getAtivos());
+                if (crescente) {
+                    Collections.sort(ativosCarteira, Comparator.comparingDouble(Ativo::getPrecoAtual));
+                } else {
+                    Collections.sort(ativosCarteira, Comparator.comparingDouble(Ativo::getPrecoAtual).reversed());
+                }
+                System.out.println("Ativos:");
+                for (Ativo ativo : ativosCarteira) {
+                    double precoFormatado = Math.round(ativo.getPrecoAtual() * 1000.0) / 1000.0; 
+                    System.out.println(ativo.getNome() + " (" + ativo.getSimbolo() + ") - Preço: " + df.format(precoFormatado));
+                }
+            }
+        }
+
+        if (!carteirasFIIs.isEmpty()) {
+            System.out.println("Carteiras de FIIs:");
+            for (CarteiraFIIs carteira : carteirasFIIs) {
+                System.out.println("Carteira: " + carteira.getNome());
+                List<Ativo> ativosCarteira = new ArrayList<>(carteira.getAtivos());
+                if (crescente) {
+                    Collections.sort(ativosCarteira, Comparator.comparingDouble(Ativo::getPrecoAtual));
+                } else {
+                    Collections.sort(ativosCarteira, Comparator.comparingDouble(Ativo::getPrecoAtual).reversed());
+                }
+                System.out.println("Ativos:");
+                for (Ativo ativo : ativosCarteira) {
+                    double precoFormatado = Math.round(ativo.getPrecoAtual() * 1000.0) / 1000.0; 
+                    System.out.println(ativo.getNome() + " (" + ativo.getSimbolo() + ") - Preço: " + df.format(precoFormatado));
+                }
+            }
+        }
+    }
+
+    public void venderAtivo(Carteira carteira, String simbolo, int quantidade, TipoCarteira tipoCarteira) {
+        Ativo ativoVenda = pesquisarAtivo(carteira, simbolo);
+        if (ativoVenda != null) {
+            double precoVenda = ativoVenda.getPrecoAtual() * quantidade;
+            if (quantidade > 0 && carteira.getAtivos().contains(ativoVenda)) {
+                if ((tipoCarteira == TipoCarteira.ACOES && ativoVenda instanceof Acao) || (tipoCarteira == TipoCarteira.FIIS && ativoVenda instanceof FII)) {
+                    carteira.removerAtivo(ativoVenda, quantidade);
+                    this.creditarSaldo(precoVenda);
+                    System.out.println(quantidade + " ativos de " + ativoVenda.getNome() + " vendidos com sucesso.");
+                    System.out.println("Valor total da venda: " + precoVenda);
+                } else {
+                    System.out.println("Tipo de ativo não corresponde ao tipo de carteira selecionado.");
+                }
+            } else {
+                System.out.println("Ativo não encontrado na carteira ou quantidade inválida.");
+            }
+        } else {
+            System.out.println("Ativo não encontrado.");
+        }
+    }
+
+    public void creditarSaldo(double valor) {
+        saldo += valor;
+    }
+
+    public Ativo pesquisarAtivo(Carteira carteira, String simbolo) {
+        for (Ativo ativo : carteira.getAtivos()) {
+            if (ativo.getSimbolo().equals(simbolo)) {
+                return ativo;
+            }
+        }
+        return null;
+    }
+}
+
+class Carteira {
+    private String nome;
+    private Stack<Ativo> ativos;
+
+    public Carteira(String nome) {
+        this.nome = nome;
+        this.ativos = new Stack<>();
+    }
+
+    public void adicionarAtivo(Ativo ativo) {
+        ativos.push(ativo);
+    }
+
+    public void removerAtivo(Ativo ativo, int quantidade) {
+        for (int i = 0; i < quantidade; i++) {
+            ativos.remove(ativo);
+        }
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Stack<Ativo> getAtivos() {
+        return ativos;
+    }
+
+    public Ativo pesquisarAtivo(String simbolo) {
+        for (Ativo ativo : ativos) {
+            if (ativo.getSimbolo().equals(simbolo)) {
+                return ativo;
+            }
+        }
+        return null;
+    }
+}
+
+class CarteiraAcoes extends Carteira {
+    public CarteiraAcoes(String nome) {
+        super(nome);
+    }
+}
+
+class CarteiraFIIs extends Carteira {
+    public CarteiraFIIs(String nome) {
+        super(nome);
+    }
+}
+
+class Acao extends Ativo {
+    public Acao(String nome, String simbolo, double precoCompra) {
+        super(nome, simbolo, precoCompra);
+    }
+}
+
+class FII extends Ativo {
+    public FII(String nome, String simbolo, double precoCompra) {
+        super(nome, simbolo, precoCompra);
+    }
+}
+
+class Ativo {
+    private String nome;
+    private String simbolo;
+    private double precoCompra;
+    private double precoAtual;
+    private List<Double> historicoPrecos;
+
+    public Ativo(String nome, String simbolo, double precoCompra) {
+        this.nome = nome;
+        this.simbolo = simbolo;
+        this.precoCompra = precoCompra;
+        this.precoAtual = precoCompra;
+        this.historicoPrecos = new ArrayList<>();
+        historicoPrecos.add(precoCompra);
+    }
+
+    public List<Double> getHistoricoPrecos() {
+        return historicoPrecos;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSimbolo() {
+        return simbolo;
+    }
+
+    public double getPrecoCompra() {
+        return precoCompra;
+    }
+
+    public double getPrecoAtual() {
+        return precoAtual;
+    }
+
+    public void atualizarPreco(double novoPreco) {
+        historicoPrecos.add(precoAtual);
+        precoAtual = novoPreco;
+    }
+
+    @Override
+    public String toString() {
+        return nome + " (" + simbolo + ") - Preço: " + precoAtual;
+    }
+}
+
+class Mercado {
+    public List<Ativo> ativosDisponiveis;
+    private Investidor investidor;
+
+    public Mercado(Investidor investidor) {
+        this.investidor = investidor;
+        this.ativosDisponiveis = new ArrayList<>();
+        
+        Acao acaoPetrobras = new Acao("Ação Petrobras", "PETR4", 25.0);
+        Acao acaoVale = new Acao("Ação Vale", "VALE3", 50.0);
+        Acao acaoAmazon = new Acao("Ação Amazon", "AMZN", 3000.0);
+        FII fiiXP = new FII("FII XP", "XPML11", 100.0);
+        FII fiiHGLG = new FII("FII HGLG", "HGLG11", 80.0);
+        
+        ativosDisponiveis.add(acaoPetrobras);
+        ativosDisponiveis.add(acaoVale);
+        ativosDisponiveis.add(acaoAmazon);
+        
+        ativosDisponiveis.add(fiiXP);
+        ativosDisponiveis.add(fiiHGLG);
+    }
+
+    public Ativo pesquisarAtivo(String simbolo) {
+        for (Ativo ativo : ativosDisponiveis) {
+            if (ativo.getSimbolo().equals(simbolo)) {
+                return ativo;
+            }
+        }
+        return null;
+    }
+
+    public boolean comprarAtivo(Carteira carteira, String simbolo, TipoCarteira tipoCarteira) {
+        Ativo ativoEncontrado = pesquisarAtivo(simbolo);
+        if (ativoEncontrado != null) {
+            if ((tipoCarteira == TipoCarteira.ACOES && ativoEncontrado instanceof Acao) || (tipoCarteira == TipoCarteira.FIIS && ativoEncontrado instanceof FII)) {
+                double precoCompra = ativoEncontrado.getPrecoCompra();
+                if (carteira != null) {
+                    if (investidor.possuiSaldoSuficiente(precoCompra)) {
+                        carteira.adicionarAtivo(ativoEncontrado);
+                        investidor.debitarSaldo(precoCompra);
+                        System.out.println("Ativo comprado com sucesso: " + ativoEncontrado.getNome());
+                        System.out.println("Preço de compra: " + precoCompra);
+                        return true;
+                    } else {
+                        System.out.println("Não há saldo suficiente para comprar o ativo.");
+                    }
+                }
+            } else {
+                System.out.println("Tipo de ativo não corresponde ao tipo de carteira selecionado.");
+            }
+        }
+        return false;
+    }
+
+    public void mostrarAtivos(boolean crescente) {
+        List<Ativo> ativosOrdenados = new ArrayList<>(ativosDisponiveis);
+        if (crescente) {
+            Collections.sort(ativosOrdenados, Comparator.comparingDouble(Ativo::getPrecoAtual));
+        } else {
+            Collections.sort(ativosOrdenados, Comparator.comparingDouble(Ativo::getPrecoAtual).reversed());
+        }
+
+        DecimalFormat df = new DecimalFormat("#.###"); 
+
+        System.out.println("Ativos disponíveis no momento:");
+        for (Ativo ativo : ativosOrdenados) {
+            double precoAtual = ativo.getPrecoAtual();
+            List<Double> historicoPrecos = ativo.getHistoricoPrecos();
+            
+            if (historicoPrecos.size() >= 2) { 
+                double precoAnterior = historicoPrecos.get(historicoPrecos.size() - 2); 
+                double variacaoPercentual = ((precoAtual - precoAnterior) / precoAnterior) * 100;
+
+                String sinal = (variacaoPercentual >= 0) ? "+" : "";
+
+                System.out.println(ativo);
+                System.out.println("Variação percentual: " + sinal + df.format(variacaoPercentual) + "%");
+            } else {
+                System.out.println(ativo);
+                System.out.println("Variação percentual: N/A (não há histórico suficiente)");
+            }
+        }
+    }
+
+    public void atualizarPrecos() {
+        Random rand = new Random();
+        for (Ativo ativo : ativosDisponiveis) {
+            double variacao = rand.nextDouble() * 10 - 5;
+            double novoPreco = ativo.getPrecoAtual() + variacao;
+            ativo.atualizarPreco(novoPreco);
+        }
+        investidor.atualizarValorEmAtivos();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Investidor investidor = null;
+        Mercado mercado = null;
+
+        System.out.println("+----------------------------------+");
+        System.out.println("| SEJA BEM VINDO A BOLSA DE VALORES |");
+        System.out.println("+----------------------------------+");
+
+        System.out.print("Usuário: ");
+        String usuario = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        if (usuario.equals("joao") && senha.equals("senha123")) {
+            investidor = new Investidor("João", "joao", "senha123", 1000.0);
+            CarteiraAcoes carteiraAcoes = new CarteiraAcoes("Carteira Ações");
+            CarteiraFIIs carteiraFIIs = new CarteiraFIIs("Carteira FIIs");
+
+            investidor.adicionarCarteiraAcoes(carteiraAcoes);
+            investidor.adicionarCarteiraFIIs(carteiraFIIs);
+
+            mercado = new Mercado(investidor);
+        } else {
+            System.out.println("Usuário ou senha incorretos. Encerrando o programa.");
+            scanner.close();
+            return;
+        }
+
+        boolean continuar = true;
+        while (continuar) {
+            System.out.println("\nOpções:");
+            System.out.println("1 - Pesquisar Ativo");
+            System.out.println("2 - Comprar Ativo");
+            System.out.println("3 - Ver Saldo");
+            System.out.println("4 - Carteira");
+            System.out.println("5 - Mostrar Ativos e Preços no Momento");
+            System.out.println("6 - Atualizar Preços");
+            System.out.println("7 - Vender Ativo");
+            System.out.println("8 - Parar");
+        
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); 
+        
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o símbolo do ativo que deseja pesquisar: ");
+                    String simboloPesquisa = scanner.next();
+                    Ativo ativoPesquisado = mercado.pesquisarAtivo(simboloPesquisa);
+                    if (ativoPesquisado != null) {
+                        System.out.println("Ativo encontrado: " + ativoPesquisado.getNome());
+                        System.out.println("Símbolo: " + ativoPesquisado.getSimbolo());
+                        System.out.println("Preço atual: " + ativoPesquisado.getPrecoAtual());
+                    } else {
+                        System.out.println("Ativo não encontrado.");
+                    }
+                    break;
+                case 2:
+                    System.out.print("Digite o símbolo do ativo que deseja comprar: ");
+                    String simboloCompra = scanner.next();
+                    System.out.print("Digite o tipo da carteira (ACOES ou FIIS): ");
+                    String tipoCarteira = scanner.next();
+                    Carteira carteiraCompra = selecionarCarteira(investidor, scanner, tipoCarteira);
+                    if (carteiraCompra != null) {
+                        mercado.comprarAtivo(carteiraCompra, simboloCompra, TipoCarteira.valueOf(tipoCarteira));
+                    }
+                    break;
+                case 3:
+                    System.out.println("Saldo atual: " + investidor.getSaldoFormatado());
+                    break;
+                case 4:
+                    System.out.println("Escolha a ordem de exibição:");
+                    System.out.println("1 - Crescente");
+                    System.out.println("2 - Decrescente");
+                    int subOpcao = scanner.nextInt();
+                    boolean crescente = (subOpcao == 1);
+                    investidor.mostrarCarteira(crescente);
+                    break;
+                case 5:
+                    System.out.println("Escolha a ordem de exibição:");
+                    System.out.println("1 - Crescente");
+                    System.out.println("2 - Decrescente");
+                    subOpcao = scanner.nextInt();
+                    crescente = (subOpcao == 1);
+                    mercado.mostrarAtivos(crescente);
+                    break;
+                case 6:
+                    mercado.atualizarPrecos();
+                    System.out.println("Preços atualizados com sucesso.");
+                    break;
+
+                case 7:
+                    System.out.print("Digite o símbolo do ativo que deseja vender: ");
+                    String simboloVenda = scanner.next();
+                    System.out.print("Digite o tipo da carteira (ACOES ou FIIS): ");
+                    tipoCarteira = scanner.next();
+                    Carteira carteiraVenda = selecionarCarteira(investidor, scanner, tipoCarteira);
+                    if (carteiraVenda != null) {
+                        System.out.print("Digite a quantidade que deseja vender: ");
+                        int quantidadeVenda = scanner.nextInt();
+                        investidor.venderAtivo(carteiraVenda, simboloVenda, quantidadeVenda, TipoCarteira.valueOf(tipoCarteira));
+                    }
+                    break;
+
+                case 8:
+                    continuar = false;
+                    break;
+
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
+            }
+            aguardarEnter();
+        }
+        System.out.println("\nPressione Enter para continuar...");
+        scanner.nextLine(); 
+        scanner.nextLine();  
+
+         System.out.println("Programa encerrado.");
+    scanner.close();
+    }
+
+
+    private static Carteira selecionarCarteira(Investidor investidor, Scanner scanner, String tipoCarteira) {
+        Carteira carteira = null;
+        if (tipoCarteira.equals("ACOES")) {
+            List<CarteiraAcoes> carteirasAcoes = investidor.getCarteirasAcoes();
+            if (!carteirasAcoes.isEmpty()) {
+                System.out.println("Escolha a carteira de ações:");
+                for (int i = 0; i < carteirasAcoes.size(); i++) {
+                    System.out.println(i + " - " + carteirasAcoes.get(i).getNome());
+                }
+                int escolha = scanner.nextInt();
+                if (escolha >= 0 && escolha < carteirasAcoes.size()) {
+                    carteira = carteirasAcoes.get(escolha);
+                } else {
+                    System.out.println("Opção inválida.");
+                }
+            } else {
+                System.out.println("O investidor não possui carteiras de ações.");
+            }
+        } else if (tipoCarteira.equals("FIIS")) {
+            List<CarteiraFIIs> carteirasFIIs = investidor.getCarteirasFIIs();
+            if (!carteirasFIIs.isEmpty()) {
+                System.out.println("Escolha a carteira de FIIs:");
+                for (int i = 0; i < carteirasFIIs.size(); i++) {
+                    System.out.println(i + " - " + carteirasFIIs.get(i).getNome());
+                }
+                int escolha = scanner.nextInt();
+                if (escolha >= 0 && escolha < carteirasFIIs.size()) {
+                    carteira = carteirasFIIs.get(escolha);
+                } else {
+                    System.out.println("Opção inválida.");
+                }
+            } else {
+                System.out.println("O investidor não possui carteiras de FIIs.");
+            }
+        } else {
+            System.out.println("Tipo de carteira inválido.");
+        }
+        return carteira;
+    }
+    private static void aguardarEnter() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nPressione Enter para voltar ao menu");
+        scanner.nextLine(); 
+    }
