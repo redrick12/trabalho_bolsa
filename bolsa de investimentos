@@ -22,8 +22,8 @@ class Investidor {
     private String senha;
     private List<CarteiraAcoes> carteirasAcoes;
     private List<CarteiraFIIs> carteirasFIIs;
-    private double saldo; // Saldo do investidor
-    private double valorEmAtivos; // Valor total em ativos
+    private double saldo; 
+    private double valorEmAtivos; 
     private List<Double> historicoCompras;
     private List<Double> historicoVendas;
 
@@ -34,7 +34,7 @@ class Investidor {
         this.carteirasAcoes = new ArrayList<>();
         this.carteirasFIIs = new ArrayList<>();
         this.saldo = saldoInicial;
-        this.valorEmAtivos = 0.0; // Inicialmente, não há ativos na carteira
+        this.valorEmAtivos = 0.0; 
         this.historicoCompras = new ArrayList<>();
         this.historicoVendas = new ArrayList<>();
     }
@@ -95,9 +95,9 @@ class Investidor {
     }
 
     public void mostrarCarteira(boolean crescente) {
-        DecimalFormat df = new DecimalFormat("#.###"); // Formatação para até três casas decimais
+        DecimalFormat df = new DecimalFormat("#.###"); 
         System.out.println("Carteira de " + nome + ":");
-        System.out.println("Saldo disponível: " + df.format(saldo)); // Formatando o saldo
+        System.out.println("Saldo disponível: " + df.format(saldo)); 
 
         if (!carteirasAcoes.isEmpty()) {
             System.out.println("Carteiras de Ações:");
@@ -111,7 +111,7 @@ class Investidor {
                 }
                 System.out.println("Ativos:");
                 for (Ativo ativo : ativosCarteira) {
-                    double precoFormatado = Math.round(ativo.getPrecoAtual() * 1000.0) / 1000.0; // Arredonda para 3 casas decimais
+                    double precoFormatado = Math.round(ativo.getPrecoAtual() * 1000.0) / 1000.0; 
                     System.out.println(ativo.getNome() + " (" + ativo.getSimbolo() + ") - Preço: " + df.format(precoFormatado));
                 }
             }
@@ -129,7 +129,7 @@ class Investidor {
                 }
                 System.out.println("Ativos:");
                 for (Ativo ativo : ativosCarteira) {
-                    double precoFormatado = Math.round(ativo.getPrecoAtual() * 1000.0) / 1000.0; // Arredonda para 3 casas decimais
+                    double precoFormatado = Math.round(ativo.getPrecoAtual() * 1000.0) / 1000.0; 
                     System.out.println(ativo.getNome() + " (" + ativo.getSimbolo() + ") - Preço: " + df.format(precoFormatado));
                 }
             }
@@ -141,10 +141,9 @@ public void venderAtivo(Carteira carteira, String simbolo, double quantidade, Ti
         double precoVenda = ativoVenda.getPrecoAtual() * quantidade;
         if (quantidade > 0 && carteira.getAtivos().contains(ativoVenda)) {
             if ((tipoCarteira == TipoCarteira.ACOES && ativoVenda instanceof Acao) || (tipoCarteira == TipoCarteira.FIIS && ativoVenda instanceof FII)) {
-                // Aplicar taxa de venda da corretora
                 double taxaCorretora = corretora.getTaxaCompra() / 100;
                 precoVenda *= (1 - taxaCorretora);
-                historicoVendas.add(precoVenda); // Adicionar ao histórico de vendas
+                historicoVendas.add(precoVenda); 
                 carteira.removerAtivo(ativoVenda, quantidade);
                 investidor.creditarSaldo(precoVenda);
                 System.out.println(quantidade + " ativos de " + ativoVenda.getNome() + " vendidos com sucesso.");
@@ -161,10 +160,6 @@ public void venderAtivo(Carteira carteira, String simbolo, double quantidade, Ti
         System.out.println("Ativo não encontrado.");
     }
 }
-
-
-    
-
     public void creditarSaldo(double valor) {
         saldo += valor;
     }
@@ -186,9 +181,6 @@ public void venderAtivo(Carteira carteira, String simbolo, double quantidade, Ti
         return historicoVendas;
     }
 }
-
-// Resto do código permanece igual...
-
 
 class Carteira {
     private String nome;
@@ -311,13 +303,11 @@ class Mercado {
         Acao acaoAmazon = new Acao("Ação Amazon", "AMZN", 3000.0);
         FII fiiXP = new FII("FII XP", "XPML11", 100.0);
         FII fiiHGLG = new FII("FII HGLG", "HGLG11", 80.0);
-        
-        // Adicionar ações à lista de ativos disponíveis
+    
         ativosDisponiveis.add(acaoPetrobras);
         ativosDisponiveis.add(acaoVale);
         ativosDisponiveis.add(acaoAmazon);
         
-        // Adicionar fundos imobiliários à lista de ativos disponíveis
         ativosDisponiveis.add(fiiXP);
         ativosDisponiveis.add(fiiHGLG);
     }
@@ -338,7 +328,6 @@ class Mercado {
                 double precoCompra = ativoEncontrado.getPrecoCompra();
                 if (carteira != null) {
                     if (investidor.possuiSaldoSuficiente(precoCompra)) {
-                        // Aplicar taxa de compra da corretora
                         precoCompra *= (1 + corretora.getTaxaCompra() / 100);
                         carteira.adicionarAtivo(ativoEncontrado);
                         investidor.debitarSaldo(precoCompra);
@@ -365,20 +354,16 @@ class Mercado {
             Collections.sort(ativosOrdenados, Comparator.comparingDouble(Ativo::getPrecoAtual).reversed());
         }
 
-        DecimalFormat df = new DecimalFormat("#.###"); // Formatação para até três casas decimais
+        DecimalFormat df = new DecimalFormat("#.###"); 
 
         System.out.println("Ativos disponíveis no momento:");
         for (Ativo ativo : ativosOrdenados) {
             double precoAtual = ativo.getPrecoAtual();
             List<Double> historicoPrecos = ativo.getHistoricoPrecos();
-            
-            if (historicoPrecos.size() >= 2) { // Verifica se há pelo menos dois preços no histórico
-                double precoAnterior = historicoPrecos.get(historicoPrecos.size() - 2); // Pegar o preço anterior
+            if (historicoPrecos.size() >= 2) { 
+                double precoAnterior = historicoPrecos.get(historicoPrecos.size() - 2); 
                 double variacaoPercentual = ((precoAtual - precoAnterior) / precoAnterior) * 100;
-
-                // Verifica se a variação é positiva ou negativa
                 String sinal = (variacaoPercentual >= 0) ? "+" : "";
-
                 System.out.println(ativo);
                 System.out.println("Variação percentual: " + sinal + df.format(variacaoPercentual) + "%");
             } else {
@@ -398,44 +383,34 @@ class Mercado {
         investidor.atualizarValorEmAtivos();
     }
 }
-
 class Corretora {
     private String nome;
     private double taxaCompra;
-
     public Corretora(String nome, double taxaCompra) {
         this.nome = nome;
         this.taxaCompra = taxaCompra;
     }
-
     public String getNome() {
         return nome;
     }
-
     public double getTaxaCompra() {
         return taxaCompra;
     }
 }
-
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Investidor investidor = null;
         Mercado mercado = null;
-
-        // Exibindo a mensagem de boas-vindas centralizada
         System.out.println("+----------------------------------+");
         System.out.println("| SEJA BEM VINDO A BOLSA DE VALORES |");
         System.out.println("+----------------------------------+");
 
-        // Solicitando login e senha
         System.out.print("Usuário: ");
         String usuario = scanner.nextLine();
         System.out.print("Senha: ");
         String senha = scanner.nextLine();
 
-        // Verificando se o usuário e senha correspondem a um investidor registrado
-        // Neste exemplo, vamos considerar um investidor fixo apenas para fins de demonstração
         if (usuario.equals("joao") && senha.equals("senha123")) {
             investidor = new Investidor("João", "joao", "senha123", 1000.0);
             CarteiraAcoes carteiraAcoes = new CarteiraAcoes("Carteira Ações");
@@ -453,7 +428,7 @@ public class Main {
 
         boolean continuar = true;
         while (continuar) {
-            // Exibindo opções para o usuário
+
             System.out.println("\nOpções:");
             System.out.println("1 - Pesquisar Ativo");
             System.out.println("2 - Comprar Ativo");
@@ -466,11 +441,9 @@ public class Main {
             System.out.println("9 - parar");
         
             int opcao = scanner.nextInt();
-            scanner.nextLine(); // Consumir a nova linha após a leitura da opção
-        
+            scanner.nextLine(); 
             switch (opcao) {
                 case 1:
-                    // Pesquisar ativo por símbolo
                     System.out.print("Digite o símbolo do ativo que deseja pesquisar: ");
                     String simboloPesquisa = scanner.next();
                     Ativo ativoPesquisado = mercado.pesquisarAtivo(simboloPesquisa);
@@ -483,27 +456,22 @@ public class Main {
                     }
                     break;
                     case 2:
-                    // Comprar ativo
-                    Corretora corretoraCompra = null; // Declare a variável corretora aqui, apenas uma vez
-                
+                    Corretora corretoraCompra = null; 
                     boolean corretoraValida = false;
-                
                     while (!corretoraValida) {
                         System.out.print("Digite a corretora (Corretora X ou Corretora Y): ");
                         String nomeCorretora = scanner.nextLine();
-                
                         if (nomeCorretora.equalsIgnoreCase("Corretora X")) {
-                            corretoraCompra = new Corretora("Corretora X", 0.5); // Taxa de 0.5%
+                            corretoraCompra = new Corretora("Corretora X", 0.5); 
                             corretoraValida = true;
                         } else if (nomeCorretora.equalsIgnoreCase("Corretora Y")) {
-                            corretoraCompra = new Corretora("Corretora Y", 0.3); // Taxa de 0.3%
+                            corretoraCompra = new Corretora("Corretora Y", 0.3); 
                             corretoraValida = true;
                         } else {
                             System.out.println("Corretora não encontrada. Por favor, digite novamente.");
                         }
                     }
                 
-                    // Continuar com o código para comprar o ativo usando a corretoraCompra
                     System.out.print("Digite o símbolo do ativo que deseja comprar: ");
                     String simboloCompra = scanner.next();
                     System.out.print("Digite o tipo da carteira (ACOES ou FIIS): ");
@@ -514,14 +482,10 @@ public class Main {
                         mercado.comprarAtivo(carteiraCompra, simboloCompra, TipoCarteira.valueOf(tipoCarteiraCompra), corretoraCompra);
                     }
                     break;
-                
-                
                 case 3:
-                    // Ver saldo do investidor
                     System.out.println("Saldo atual: " + investidor.getSaldoFormatado());
                     break;
                 case 4:
-                    // Carteira
                     System.out.println("Escolha a ordem de exibição:");
                     System.out.println("1 - Crescente");
                     System.out.println("2 - Decrescente");
@@ -530,7 +494,6 @@ public class Main {
                     investidor.mostrarCarteira(crescente);
                     break;
                 case 5:
-                    // Mostrar ativos e preços no momento
                     System.out.println("Escolha a ordem de exibição:");
                     System.out.println("1 - Crescente");
                     System.out.println("2 - Decrescente");
@@ -539,43 +502,33 @@ public class Main {
                     mercado.mostrarAtivos(crescente);
                     break;
                 case 6:
-                    // Atualizar preços
                     mercado.atualizarPrecos();
                     System.out.println("Preços atualizados com sucesso.");
                     break;
-
-                    
-                 
                     case 7:
                     System.out.print("Digite o símbolo do ativo que deseja vender: ");
-String simboloVenda = scanner.next();
-System.out.print("Digite o tipo da carteira (ACOES ou FIIS): ");
-String tipoCarteiraVenda = scanner.next();
-Carteira carteiraVenda = selecionarCarteira(investidor, scanner, tipoCarteiraVenda);
-
+    String simboloVenda = scanner.next();
+    System.out.print("Digite o tipo da carteira (ACOES ou FIIS): ");
+    String tipoCarteiraVenda = scanner.next();
+    Carteira carteiraVenda = selecionarCarteira(investidor, scanner, tipoCarteiraVenda);
 if (carteiraVenda != null) {
     System.out.println("Digite a corretora (Corretora X ou Corretora Y): ");
-    scanner.nextLine(); // Consuma a quebra de linha pendente
-
+    scanner.nextLine(); 
     String nomeCorretora = scanner.nextLine().trim(); // Use trim() para remover espaços em branco
     Corretora corretoraVenda = null;
-
     if (nomeCorretora.equalsIgnoreCase("Corretora X")) {
-        corretoraVenda = new Corretora("Corretora X", 0.5); // Taxa de 0.5%
+        corretoraVenda = new Corretora("Corretora X", 0.5); 
     } else if (nomeCorretora.equalsIgnoreCase("Corretora Y")) {
-        corretoraVenda = new Corretora("Corretora Y", 0.3); // Taxa de 0.3%
+        corretoraVenda = new Corretora("Corretora Y", 0.3); 
     } else {
         System.out.println("Corretora não encontrada.");
         break;
     }
-
     try {
         System.out.print("Digite a quantidade de ativos que deseja vender: ");
         String quantidadeVendaStr = scanner.nextLine();
         double quantidadeVenda = Double.parseDouble(quantidadeVendaStr);
-
         if (quantidadeVenda > 0) {
-            // Resto do código para vender o ativo
             investidor.venderAtivo(carteiraVenda, simboloVenda, quantidadeVenda, TipoCarteira.valueOf(tipoCarteiraVenda), corretoraVenda, investidor);
         } else {
             System.out.println("Quantidade inválida. Certifique-se de inserir um valor positivo para a quantidade.");
@@ -584,42 +537,29 @@ if (carteiraVenda != null) {
         System.out.println("Entrada inválida. Certifique-se de digitar um número válido para a quantidade.");
     }
 }
-
                     break;
-                
-                
-
-                case 9:
-                    // Parar o programa
+                case 8:
                     continuar = false;
                     System.out.println("Encerrando o programa...");
                     break;
-
-
-                    case 8 :
-    // Visualizar Histórico de Compras e Vendas
+                    case 9:
     System.out.println("Histórico de Compras:");
     List<Double> historicoCompras = investidor.getHistoricoCompras();
     for (Double compra : historicoCompras) {
         System.out.println("Compra: " + compra);
     }
-
     System.out.println("\nHistórico de Vendas:");
     List<Double> historicoVendas = investidor.getHistoricoVendas();
     for (Double venda : historicoVendas) {
         System.out.println("Venda: " + venda);
     }
     break;
-
                 default:
                     System.out.println("Opção inválida.");
             }
         }
-
-        // Fechando o scanner
         scanner.close();
     }
-
     private static Carteira selecionarCarteira(Investidor investidor, Scanner scanner, String tipoCarteira) {
         if (tipoCarteira.equalsIgnoreCase("ACOES")) {
             List<CarteiraAcoes> carteirasAcoes = investidor.getCarteirasAcoes();
