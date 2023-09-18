@@ -514,7 +514,7 @@ public class Main {
 if (carteiraVenda != null) {
     System.out.println("Digite a corretora (Corretora X ou Corretora Y): ");
     scanner.nextLine(); 
-    String nomeCorretora = scanner.nextLine().trim(); // Use trim() para remover espaços em branco
+    String nomeCorretora = scanner.nextLine().trim(); 
     Corretora corretoraVenda = null;
     if (nomeCorretora.equalsIgnoreCase("Corretora X")) {
         corretoraVenda = new Corretora("Corretora X", 0.5); 
