@@ -148,7 +148,7 @@ public void venderAtivo(Carteira carteira, String simbolo, double quantidade, Ti
                 investidor.creditarSaldo(precoVenda);
                 System.out.println(quantidade + " ativos de " + ativoVenda.getNome() + " vendidos com sucesso.");
                 System.out.println("Valor total da venda (com taxa): " + precoVenda);
-                investidor.getHistoricoVendas().add(precoVenda); // Adicione isso após a venda bem-sucedida
+                investidor.getHistoricoVendas().add(precoVenda); 
 
             } else {
                 System.out.println("Tipo de ativo não corresponde ao tipo de carteira selecionado.");
