@@ -1,4 +1,4 @@
-<h1 align="center"> Seu título aqui </h1>## Trabalho da Bolsa - LG2
+<h1 align="center"> Trabalho da Bolsa - LG2 </h1>
 trabalho do professor Ugo sobre bolsa de valores
 
 
