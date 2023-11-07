@@ -1,46 +1,16 @@
-<h1 align="LEFT"> Trabalho da Bolsa - LG2 </h1>
+ <h1 align="center"> Trabalho da Bolsa - LG2 </h1>
+ trabalho do professor Ugo sobre bolsa de valores - LG2 
 
-trabalho do professor Ugo sobre bolsa de valores </h1>
 
 
+
+
+<h1 align="LEFT"> Quem somos nós? - LG2 </h1>
+Quem somos nós? Muitas pessoas tem essa dúvida frequentemente quando escolhem no aplicação para investir. Entretanto, nós somos uma empresa que surgiu
+
+
+ 
 <img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="100px">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1 align="LEFT"> Trabalho da Bolsa - LG2 </h1>
-
-
- nkxcnjkfbijddfh
-
- df
- gfdg
- rf
- g
- fdg
- fdg
- fdg
- df
- f
- gf
- h
- dfd
- df d 
-
-
-
-
 
 
 
