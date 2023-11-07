@@ -3,7 +3,7 @@
 trabalho do professor Ugo sobre bolsa de valores
 
 
-<img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="1000px">
+<img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="100px">
 
 
 
