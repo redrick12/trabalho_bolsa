@@ -5,7 +5,7 @@ trabalho do professor Ugo sobre bolsa de valores </h1>
 
 <img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="100px">
 
-![Snake animation](https://github.com/iMxguel/USERNAME/blob/output/github-contribution-grid-snake.svg)
+![Snake animation](https://github.com/iMxguel/blob/output/github-contribution-grid-snake.svg)
 
 
 
