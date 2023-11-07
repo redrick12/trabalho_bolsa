@@ -19,21 +19,24 @@ trabalho do professor Ugo sobre bolsa de valores </h1>
 
 
 
-dfggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-f
-g
-f
-gf
-g
-f
-gh
-fg
-rf
-gd
-fg
-
-
 <h1 align="LEFT"> Trabalho da Bolsa - LG2 </h1>
+
+
+ nkxcnjkfbijddfh
+
+ df
+ gfdg
+ rf
+ g
+ fdg
+ fdg
+ fdg
+ df
+ f
+ gf
+ h
+ dfd
+ df d 
 
 
 
