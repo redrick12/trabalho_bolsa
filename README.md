@@ -1,9 +1,11 @@
 <h1 align="center"> Trabalho da Bolsa - LG2 </h1>
 
-<h1 align="left"> trabalho do professor Ugo sobre bolsa de valores </h1>
+trabalho do professor Ugo sobre bolsa de valores </h1>
 
 
 <img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="100px">
+
+![Snake animation](https://github.com/iMxguel/USERNAME/blob/output/github-contribution-grid-snake.svg)
 
 
 
