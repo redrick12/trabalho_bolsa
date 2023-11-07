@@ -1,7 +1,7 @@
-<h1 align="center"> Trabalho da Bolsa - LG2 </h1>
+<h1 align="LEFT"> Trabalho da Bolsa - LG2 </h1>
 
 trabalho do professor Ugo sobre bolsa de valores </h1>
-TRABALHO DO PROFESSOR UGO
+
 
 <img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="100px">
 
