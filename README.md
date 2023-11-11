@@ -14,7 +14,7 @@
 
 
 <h1 align="LEFT"> Quem somos nós? </h1>
-Quem somos nós? Muitas pessoas tem essa dúvida frequentemente quando escolhem nossa aplicação para investir. Entretanto, nós somos uma empresa que surgiu em meados de 2021 inicialmente trabalhando com peças de Arduino e afins. Entretanto, este área não nos rendeu boas coisas, então mudamos para a área de investimento. Em suma, desde então mudamos para essa área desde o inicio do ano com o objetivo de atingir o maior numeros de investideros com nosso programa
+- Quem somos nós? Muitas pessoas tem essa dúvida frequentemente quando escolhem nossa aplicação para investir. Entretanto, nós somos uma empresa que surgiu em meados de 2021 inicialmente trabalhando com peças de Arduino e afins. Entretanto, este área não nos rendeu boas coisas, então mudamos para a área de investimento. Em suma, desde então mudamos para essa área desde o inicio do ano com o objetivo de atingir o maior numeros de investideros com nosso programa
 
 
  
@@ -23,7 +23,7 @@ Quem somos nós? Muitas pessoas tem essa dúvida frequentemente quando escolhem 
 
 
 <h1 align="LEFT"> Qual é nosso objetivo? </h1> 
-Um grande números de investidores ficam com muitas questões sobre a gente, se somos confiáveis, qual nosso objetivo dentre o mercado etc. Neste instante, Explicarei tudo. A nosso empresa tem como objetivo atingir o maior números de pessoas, como dito anteriormente. Faremos isso através do nosso programa feito em java com a IDE do VisualCode.
+- Um grande números de investidores ficam com muitas questões sobre a gente, se somos confiáveis, qual nosso objetivo dentre o mercado etc. Neste instante, Explicarei tudo. A nosso empresa tem como objetivo atingir o maior números de pessoas, como dito anteriormente. Faremos isso através do nosso programa feito em java com a IDE do VisualCode.
 
 
 
@@ -33,13 +33,15 @@ Um grande números de investidores ficam com muitas questões sobre a gente, se 
 
 
 <h1 align="LEFT"> Como o programa funciona? - </h1> 
- Como o programa funciona? para destrinchar essa dúvida irei explicar detalhadamente.> 
+- Como o programa funciona? para destrinchar essa dúvida irei explicar detalhadamente.> 
 
 
 
 <img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="50px"> 
 
 
+<h1 align="LEFT"> Como instalar/utilizar o programa? - </h1> 
+- Agora voce investidor sabe quem nós somos, qual nosso objetivo e como funciona o programa, explicarei como utilizar o programa. ...
 
 
 
