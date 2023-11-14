@@ -411,8 +411,8 @@ public class Main {
         System.out.print("Senha: ");
         String senha = scanner.nextLine();
 
-        if (usuario.equals("joao") && senha.equals("senha123")) {
-            investidor = new Investidor("João", "joao", "senha123", 1000.0);
+        if (usuario.equals("Erick") && senha.equals("senha123")) {
+            investidor = new Investidor("Erick", "Erick", "senha123", 1000.0);
             CarteiraAcoes carteiraAcoes = new CarteiraAcoes("Carteira Ações");
             CarteiraFIIs carteiraFIIs = new CarteiraFIIs("Carteira FIIs");
 
@@ -538,11 +538,11 @@ if (carteiraVenda != null) {
     }
 }
                     break;
-                case 8:
+                     case 9:
                     continuar = false;
                     System.out.println("Encerrando o programa...");
                     break;
-                    case 9:
+                    case 8:
     System.out.println("Histórico de Compras:");
     List<Double> historicoCompras = investidor.getHistoricoCompras();
     for (Double compra : historicoCompras) {
@@ -598,6 +598,9 @@ if (carteiraVenda != null) {
         } else {
             System.out.println("Tipo de carteira inválido.");
             return null;
+        }
+    }
+}
         }
     }
 }
