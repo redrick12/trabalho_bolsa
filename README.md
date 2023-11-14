@@ -35,6 +35,43 @@
 <h1 align="LEFT"> Como o programa funciona?99 </h1> 
 - Como o programa funciona? para destrinchar essa dúvida irei explicar detalhadamente. ...
 
+Roteiro das 9 opções do switch:
+
+Opção 1: Pesquisar um ativo pelo símbolo
+
+O usuário digita o símbolo do ativo que deseja pesquisar. O programa pesquisa o ativo no mercado e, se encontrar, imprime as informações básicas do ativo, como nome, símbolo e preço atual.
+
+Opção 2: Comprar um ativo
+
+O usuário digita o símbolo do ativo que deseja comprar, o tipo da carteira (ações ou FIIs) e a corretora que deseja usar. O programa verifica se o usuário possui saldo suficiente para realizar a compra e, se sim, realiza a compra do ativo.
+
+Opção 3: Consultar o saldo
+
+O programa imprime o saldo atual do investidor.
+
+Opção 4: Exibir a carteira
+
+O usuário escolhe a ordem de exibição da carteira (crescente ou decrescente) e o programa imprime a carteira do investidor na ordem escolhida.
+
+Opção 5: Exibir os ativos do mercado
+
+O usuário escolhe a ordem de exibição dos ativos (crescente ou decrescente) e o programa imprime os ativos do mercado na ordem escolhida.
+
+Opção 6: Atualizar os preços dos ativos
+
+O programa atualiza os preços dos ativos do mercado.
+
+Opção 7: Vender um ativo
+
+O usuário digita o símbolo do ativo que deseja vender, o tipo da carteira (ações ou FIIs) e a corretora que deseja usar. O programa verifica se o usuário possui o ativo na carteira e, se sim, realiza a venda do ativo.
+
+Opção 8: Sair do programa
+
+O programa encerra.
+
+Opção 9: Exibir o histórico de compras e vendas
+
+O programa imprime o histórico de compras e vendas do investidor.
 
 
 <img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="50px"> 
