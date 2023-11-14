@@ -13,7 +13,7 @@
 
 
 
-<h1 align="LEFT"> Quem somos nós?99 </h1>
+<h1 align="LEFT"> Quem somos nós? </h1>
 - Quem somos nós? Muitas pessoas tem essa dúvida frequentemente quando escolhem nossa aplicação para investir. Entretanto, nós somos uma empresa que surgiu em meados de 2021 inicialmente trabalhando com peças de Arduino e afins. Entretanto, este área não nos rendeu boas coisas, então mudamos para a área de investimento. Em suma, desde então mudamos para essa área desde o inicio do ano com o objetivo de atingir o maior numeros de investideros com nosso programa.
 
 
@@ -22,7 +22,7 @@
 
 
 
-<h1 align="LEFT"> Qual é nosso objetivo?99 </h1> 
+<h1 align="LEFT"> Qual é nosso objetivo? </h1> 
 - Um grande números de investidores ficam com muitas questões sobre a gente, se somos confiáveis, qual nosso objetivo dentre o mercado etc. Neste instante, Explicarei tudo. A nosso empresa tem como objetivo atingir o maior números de pessoas, como dito anteriormente. Faremos isso através do nosso programa feito em java com a IDE do VisualCode.
 
 
