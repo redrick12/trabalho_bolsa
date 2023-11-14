@@ -46,6 +46,9 @@ O programa opera da seguinte maneira: o utilizador terá uma conta e fará o log
 
 
 - Agora voce investidor sabe quem nós somos, qual nosso objetivo e como funciona o programa, explicarei como utilizar o programa. ...
+
+
+
 Opção 1: Pesquisar um ativo pelo símbolo
 
 O usuário digita o símbolo do ativo que deseja pesquisar. O programa pesquisa o ativo no mercado e, se encontrar, imprime as informações básicas do ativo, como nome, símbolo e preço atual.
