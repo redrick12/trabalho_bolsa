@@ -32,11 +32,19 @@
 
 
 
-<h1 align="LEFT"> Como o programa funciona?99 </h1> 
+<h1 align="LEFT"> Como o programa funciona? </h1> 
 - Como o programa funciona? para destrinchar essa dúvida irei explicar detalhadamente. ...
 
-Roteiro das 9 opções do switch:
 
+
+
+<img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="50px"> 
+
+
+<h1 align="LEFT"> Como instalar/utilizar o programa?99</h1> 
+
+
+- Agora voce investidor sabe quem nós somos, qual nosso objetivo e como funciona o programa, explicarei como utilizar o programa. ...
 Opção 1: Pesquisar um ativo pelo símbolo
 
 O usuário digita o símbolo do ativo que deseja pesquisar. O programa pesquisa o ativo no mercado e, se encontrar, imprime as informações básicas do ativo, como nome, símbolo e preço atual.
@@ -72,14 +80,6 @@ O programa encerra.
 Opção 9: Exibir o histórico de compras e vendas
 
 O programa imprime o histórico de compras e vendas do investidor.
-
-
-<img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="50px"> 
-
-
-<h1 align="LEFT"> Como instalar/utilizar o programa?99</h1> 
-- Agora voce investidor sabe quem nós somos, qual nosso objetivo e como funciona o programa, explicarei como utilizar o programa. ...
-
 
 
 
