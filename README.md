@@ -35,6 +35,7 @@
 <h1 align="LEFT"> Como o programa funciona? </h1> 
 - Como o programa funciona? para destrinchar essa dúvida irei explicar detalhadamente. ...
 
+O programa opera da seguinte maneira: o utilizador terá uma conta e fará o login nela. No momento, a única conta disponível seria com o nome de utilizador "Erick" e a senha "123". Com isso, terá à disposição 9 opções, e o utilizador, como teste, inicia com 1000 reais. Trata-se de uma simulação básica de como seria investir na bolsa de valores.
 
 
 
