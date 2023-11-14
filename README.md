@@ -42,7 +42,7 @@ O programa opera da seguinte maneira: o utilizador terá uma conta e fará o log
 <img src="https://dev.java/assets/images/java-logo-vert-blk.png" width="50px"> 
 
 
-<h1 align="LEFT"> Como instalar/utilizar o programa?99</h1> 
+<h1 align="LEFT"> Como instalar/utilizar o programa?</h1> 
 
 
 - Agora voce investidor sabe quem nós somos, qual nosso objetivo e como funciona o programa, explicarei como utilizar o programa. ...
